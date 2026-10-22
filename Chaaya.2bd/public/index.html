@@ -127,7 +127,7 @@
       <div class="composer" id="composer">
         <button type="button" class="photo-btn" id="photoBtn" aria-label="Send photo" disabled>📷</button>
         <input type="file" id="file" accept="image/*" hidden>
-        <input id="msgInput" type="text" name="chaaya-message" placeholder="Say hi…" maxlength="500" enterkeyhint="send" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" disabled>
+        <div id="msgInput" class="msg-input" role="textbox" aria-label="Message" aria-multiline="false" contenteditable="false" data-placeholder="Say hi…" enterkeyhint="send" autocapitalize="sentences" spellcheck="false"></div>
         <button type="button" class="send-btn" id="sendBtn" aria-label="Send" disabled>➤</button>
       </div>
     </div>
