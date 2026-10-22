@@ -37,7 +37,7 @@ const wss = new WebSocketServer({ server, maxPayload: 400 * 1024 });
 
 const send = (ws, o) => ws.readyState === 1 && ws.send(JSON.stringify(o));
 const clearTimers = s => {
-  s.timers.forEach(clearTimeout); s.timers = [];
+  s.timers.forEach(clearTimeout); s.timers = []; s.rejecting = false;
   clearTimeout(s.readTimer); s.replying = false; s.pendingText = ''; s.pendingImg = false;
 };
 
@@ -120,8 +120,11 @@ wss.on('connection', ws => {
       }
       if (s.partner) send(s.partner, out);
       else if (s.bot) {
-        if (m.t === 'img') { clearTimers(s); s.bot = null; send(ws, { t: 'left' }); }  // photo sent to bot: leaves instantly
-        else botRespond(ws, out.text, false);
+        if (s.rejecting) return;                       // already leaving, ignore anything else
+        if (m.t === 'img') {                           // photo sent to bot: leaves after 2 seconds
+          const bot = s.bot; clearTimers(s); s.rejecting = true;
+          s.timers.push(setTimeout(() => { if (s.bot === bot) { s.bot = null; s.rejecting = false; send(ws, { t: 'left' }); } }, 2000));
+        } else botRespond(ws, out.text, false);
       }
     }
   });
