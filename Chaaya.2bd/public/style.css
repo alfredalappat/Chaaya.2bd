@@ -78,6 +78,10 @@ a{color:var(--tea)}
 .composer{display:flex;gap:6px;padding:7px 8px;border-top:1px solid var(--line);align-items:center}
 .composer input[type=text]{flex:1;min-width:0;border:2px solid var(--line);border-radius:999px;padding:8px 15px;font:inherit;font-size:16px;outline:none;background:#fffdf7;color:var(--ink);transition:border-color .15s}
 .composer input[type=text]:focus{border-color:var(--tea)}
+.msg-input{flex:1;min-width:0;max-height:96px;overflow-y:auto;border:2px solid var(--line);border-radius:22px;padding:8px 15px;font:inherit;font-size:16px;line-height:1.35;background:#fffdf7;color:var(--ink);outline:none;white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;transition:border-color .15s}
+.msg-input:focus{border-color:var(--tea)}
+.msg-input:empty:before{content:attr(data-placeholder);color:#9a8f7c;pointer-events:none}
+.msg-input[contenteditable=false]{opacity:.5;cursor:not-allowed}
 .photo-btn,.send-btn{width:40px;height:40px;border-radius:50%;font-size:17px;flex:none;display:grid;place-items:center;transition:transform .15s,opacity .15s}
 .photo-btn{background:#f3ecda}
 .send-btn{background:var(--amber);color:#2a1704;font-size:16px}
