@@ -9,7 +9,7 @@ function fitChat(){
 }
 function showView(v){$('landing').hidden=v!=='landing';$('chat').hidden=v!=='chat';window.scrollTo(0,0);fitChat()}
 if(window.visualViewport){visualViewport.addEventListener('resize',fitChat);visualViewport.addEventListener('scroll',fitChat)}
-function setReady(on){['msgInput','sendBtn','photoBtn'].forEach(i=>$(i).disabled=!on);if(on)$('msgInput').focus()}
+function setReady(on){['sendBtn','photoBtn'].forEach(i=>$(i).disabled=!on);$('msgInput').contentEditable=on?'plaintext-only':'false';if(on)$('msgInput').focus()}
 function setState(s,label){state=s;$('status').textContent=label;$('status').classList.toggle('live',s==='chatting');setReady(s==='chatting')}
 
 const box=$('messages');
@@ -60,10 +60,12 @@ $('nextBtn').onclick=findNext;
 
 // Sending keeps the keyboard open
 function sendMsg(){
-  const t=$('msgInput').value.trim();
-  if(t&&state==='chatting'){tx({t:'msg',text:t});add('me',t);$('msgInput').value=''}
+  const t=$('msgInput').textContent.trim();
+  if(t&&state==='chatting'){tx({t:'msg',text:t});add('me',t);$('msgInput').textContent=''}
   $('msgInput').focus();
 }
+// paste as plain text only
+$('msgInput').addEventListener('paste',e=>{e.preventDefault();const t=(e.clipboardData||window.clipboardData).getData('text/plain').replace(/\s+/g,' ');document.execCommand('insertText',false,t)});
 $('msgInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendMsg()}});
 $('sendBtn').addEventListener('click',sendMsg);
 $('sendBtn').addEventListener('mousedown',e=>e.preventDefault());
