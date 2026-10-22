@@ -26,7 +26,11 @@ function clearChat(){box.innerHTML='';$('typing').hidden=true}
 function connect(cb){
   if(ws&&ws.readyState===1)return cb&&cb();
   ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
-  ws.onopen=()=>cb&&cb();
+  ws.onopen=()=>{
+    let ret=false;try{ret=!!sessionStorage.getItem('chaaya_v');sessionStorage.setItem('chaaya_v','1')}catch(e){}
+    tx({t:'hello',ret});
+    cb&&cb();
+  };
   ws.onmessage=e=>{
     const m=JSON.parse(e.data);
     if(m.t==='online'){$('onlineLanding').textContent=m.n}
