@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chaaya.2bd – Chat with Malayalis Online | Free Stranger Chat</title>
+<meta name="description" content="Chaaya.2bd is a free online chat to meet and talk with Malayali strangers. Start a text chat instantly, share photos, and make new friends from Kerala and around the world.">
+<meta name="keywords" content="Malayalam chat, Malayali stranger chat, Kerala chat, mallu chat, Chaaya.2bd, online chat">
+<meta name="robots" content="index,follow">
+<meta name="google-site-verification" content="PASTE_YOUR_GOOGLE_SEARCH_CONSOLE_CODE">
+<meta name="theme-color" content="#0f766e">
+<link rel="canonical" href="https://YOUR-DOMAIN.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chaaya.2bd">
+<meta property="og:title" content="Chaaya.2bd – Chat with Malayalis Online">
+<meta property="og:description" content="Meet and chat with Malayali strangers instantly. Free, simple, no sign-up.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Chaaya.2bd","url":"https://YOUR-DOMAIN.com/","applicationCategory":"SocialNetworkingApplication","operatingSystem":"Any","description":"Free online chat to meet Malayali strangers.","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"inLanguage":["en","ml"]}
+</script>
+<style>
+:root{--bg:#f4faf9;--card:#fff;--ink:#12302d;--mute:#5f7a77;--pri:#0f766e;--pri2:#14b8a6;--line:#d8e8e5;--me:#0f766e;--them:#e7f1ef;--r:18px}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1514;--card:#13211f;--ink:#e6f2f0;--mute:#8fa9a5;--line:#244240;--them:#1c312f}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+.view{display:none;min-height:100%;flex-direction:column}
+.view.on{display:flex}
+/* home */
+.wrap{width:100%;max-width:560px;margin:auto;padding:28px 20px}
+.logo{font-size:2.2rem;font-weight:800;letter-spacing:-.5px;color:var(--pri)}
+.logo span{color:var(--pri2)}
+.tag{color:var(--mute);margin:6px 0 18px}
+.online{display:inline-flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-size:.9rem}
+.dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px #22c55e33}
+.cards{display:grid;gap:14px;margin:26px 0 18px}
+.opt{position:relative;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;gap:16px;align-items:center;width:100%;transition:.15s}
+.opt:not(.lock):hover{transform:translateY(-2px);border-color:var(--pri2);box-shadow:0 8px 24px #0f766e22}
+.ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.6rem;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;flex:none}
+.opt h2{font-size:1.1rem}.opt p{color:var(--mute);font-size:.9rem}
+.lock{opacity:.7;cursor:not-allowed}.lock .ico{background:#94a3b8}
+.badge{position:absolute;top:12px;right:12px;font-size:.72rem;font-weight:700;background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:99px}
+.note{font-size:.8rem;color:var(--mute);text-align:center}
+.note a{color:var(--pri)}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:#12302d;color:#fff;padding:10px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;font-size:.9rem}
+.toast.on{opacity:1;transform:translateX(-50%)}
+/* chat */
+#chat{height:100dvh;max-width:720px;margin:auto;background:var(--card);border-inline:1px solid var(--line)}
+.top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.top .back{background:none;font-size:1.3rem;padding:4px 8px}
+.top b{display:block;line-height:1.2}.top small{color:var(--mute)}
+.spacer{flex:1}
+.pill{background:var(--them);padding:8px 16px;border-radius:99px;font-weight:600}
+.pill.next{background:var(--pri);color:#fff}
+#msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:78%;padding:9px 14px;border-radius:18px;word-wrap:break-word;white-space:pre-wrap;animation:pop .15s}
+.m.me{align-self:flex-end;background:var(--me);color:#fff;border-bottom-right-radius:5px}
+.m.them{align-self:flex-start;background:var(--them);border-bottom-left-radius:5px}
+.m.sys{align-self:center;background:none;color:var(--mute);font-size:.85rem;text-align:center}
+.m.photo{padding:4px;width:min(60%,260px)}
+.photo .sq{width:100%;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:#0002}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.typing{align-self:flex-start;display:none;gap:4px;background:var(--them);padding:12px 14px;border-radius:18px}
+.typing.on{display:flex}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@keyframes pop{from{transform:scale(.95);opacity:0}}
+.bar{display:flex;gap:8px;align-items:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.bar input[type=text]{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:12px 16px;border-radius:99px;font:inherit;outline:none;-webkit-user-select:text;user-select:text}
+.bar input[type=text]:focus{border-color:var(--pri2)}
+.round{width:44px;height:44px;border-radius:50%;background:var(--them);font-size:1.2rem;flex:none}
+.round.go{background:var(--pri);color:#fff}
+.bar :disabled{opacity:.45;cursor:not-allowed}
+/* screenshot deterrent (best effort) */
+body.hide #chat,body.hide .wrap{filter:blur(24px)}
+@media print{body{display:none}}
+</style>
+</head>
+<body>
+<main id="home" class="view on">
+  <div class="wrap">
+    <h1 class="logo">Chaaya<span>.2bd</span></h1>
+    <p class="tag">Chat with Malayalis. Over a cup of chaya. ☕</p>
+    <div class="online"><i class="dot"></i><span><b id="count">–</b> online now</span></div>
+    <div class="cards">
+      <button class="opt" id="textBtn"><div class="ico">💬</div><div><h2>Text Chat</h2><p>Meet a random Malayali instantly</p></div></button>
+      <button class="opt lock" id="videoBtn" aria-disabled="true"><span class="badge">Coming soon</span><div class="ico">🎥</div><div><h2>Video Chat</h2><p>Face-to-face chat is on the way</p></div></button>
+    </div>
+    <p class="note">By continuing you confirm you are 18+ and accept our <a href="/terms">Terms &amp; Privacy</a>.<br>Never share personal details with strangers.</p>
+  </div>
+</main>
+
+<main id="chat" class="view">
+  <div class="top">
+    <button class="back" id="stop" aria-label="Leave chat">←</button>
+    <div><b>Stranger</b><small id="status">Connecting…</small></div>
+    <div class="spacer"></div>
+    <button class="pill next" id="next">Next</button>
+  </div>
+  <div id="msgs" aria-live="polite"><div class="typing" id="typing"><i></i><i></i><i></i></div></div>
+  <form class="bar" id="form" autocomplete="off">
+    <button type="button" class="round" id="photoBtn" aria-label="Send photo" disabled>📷</button>
+    <input type="file" id="file" accept="image/*" hidden>
+    <input type="text" id="input" placeholder="Type a message…" maxlength="500" disabled>
+    <button class="round go" id="send" aria-label="Send" disabled>➤</button>
+  </form>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+let ws, state = 'idle', typingTimer, lastTyping = 0;
+
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+function show(v){['home','chat'].forEach(x=>$(x).classList.toggle('on',x===v))}
+function setReady(on){['input','send','photoBtn'].forEach(i=>$(i).disabled=!on);if(on)$('input').focus()}
+function setState(s,label){state=s;$('status').textContent=label;setReady(s==='chatting')}
+
+function add(cls,text){
+  const d=document.createElement('div');d.className='m '+cls;d.textContent=text;
+  $('msgs').insertBefore(d,$('typing'));scroll();return d;
+}
+function addPhoto(cls,src){
+  const d=document.createElement('div');d.className='m photo '+cls;
+  const sq=document.createElement('div');sq.className='sq';
+  const im=document.createElement('img');im.src=src;im.alt='Shared photo';im.draggable=false;
+  sq.appendChild(im);d.appendChild(sq);$('msgs').insertBefore(d,$('typing'));scroll();
+}
+function scroll(){const m=$('msgs');m.scrollTop=m.scrollHeight}
+function clearChat(){[...$('msgs').querySelectorAll('.m')].forEach(n=>n.remove());$('typing').classList.remove('on')}
+
+function connect(cb){
+  if(ws&&ws.readyState===1)return cb&&cb();
+  ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
+  ws.onopen=()=>cb&&cb();
+  ws.onmessage=e=>{
+    const m=JSON.parse(e.data);
+    if(m.t==='online')$('count').textContent=m.n;
+    else if(m.t==='searching'){setState('searching','Looking for someone…');add('sys','Looking for a stranger…')}
+    else if(m.t==='matched'){clearChat();setState('chatting','Online');add('sys','You are connected. Say hi! 👋')}
+    else if(m.t==='msg'){$('typing').classList.remove('on');add('them',m.text)}
+    else if(m.t==='img'&&m.data.startsWith('data:image/jpeg;base64,')){addPhoto('them',m.data)}
+    else if(m.t==='typing'){$('typing').classList.toggle('on',m.on);scroll()}
+    else if(m.t==='left'){$('typing').classList.remove('on');setState('ended','Disconnected');add('sys','Stranger has left the chat. Tap Next to find someone new.')}
+  };
+  ws.onclose=()=>{if($('chat').classList.contains('on')){setState('ended','Connection lost');add('sys','Connection lost. Tap Next to reconnect.')}else setTimeout(()=>connect(),2000)};
+}
+const tx=o=>ws&&ws.readyState===1&&ws.send(JSON.stringify(o));
+
+function findNext(){clearChat();setState('searching','Looking for someone…');connect(()=>tx({t:'join'}))}
+
+$('textBtn').onclick=()=>{show('chat');findNext()};
+$('videoBtn').onclick=()=>toast('Video chat is coming soon! 🎥');
+$('next').onclick=findNext;
+$('stop').onclick=()=>{tx({t:'leave'});setState('idle','');show('home')};
+
+$('form').onsubmit=e=>{
+  e.preventDefault();const t=$('input').value.trim();
+  if(!t||state!=='chatting')return;
+  tx({t:'msg',text:t});add('me',t);$('input').value='';
+};
+$('input').oninput=()=>{
+  if(state!=='chatting'||Date.now()-lastTyping<1500)return;
+  lastTyping=Date.now();tx({t:'typing',on:true});
+  clearTimeout(typingTimer);typingTimer=setTimeout(()=>tx({t:'typing',on:false}),2000);
+};
+
+// Photo: center-crop to a square before sending, shown in a square frame
+$('photoBtn').onclick=()=>$('file').click();
+$('file').onchange=e=>{
+  const f=e.target.files[0];e.target.value='';
+  if(!f||!f.type.startsWith('image/'))return;
+  const img=new Image(),url=URL.createObjectURL(f);
+  img.onload=()=>{
+    const s=Math.min(img.width,img.height),S=480,c=document.createElement('canvas');
+    c.width=c.height=S;
+    c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,S,S);
+    const data=c.toDataURL('image/jpeg',.8);URL.revokeObjectURL(url);
+    if(state==='chatting'){tx({t:'img',data});addPhoto('me',data)}
+  };
+  img.onerror=()=>toast('Could not read that photo');
+  img.src=url;
+};
+
+// Screenshot deterrents (best effort only – see README notes)
+const hide=on=>document.body.classList.toggle('hide',on);
+document.addEventListener('visibilitychange',()=>hide(document.hidden));
+window.addEventListener('blur',()=>hide(true));
+window.addEventListener('focus',()=>hide(false));
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(e.key==='PrintScreen'||((e.ctrlKey||e.metaKey)&&['p','s'].includes(e.key.toLowerCase()))||(e.metaKey&&e.shiftKey&&['3','4','5'].includes(e.key))){
+    e.preventDefault();hide(true);try{navigator.clipboard.writeText('')}catch{}setTimeout(()=>hide(false),1500);
+  }
+});
+
+connect(); // loads the live online counter on the home screen
+</script>
+</body>
+</html>
