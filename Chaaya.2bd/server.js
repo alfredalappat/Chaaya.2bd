@@ -119,17 +119,20 @@ wss.on('connection', ws => {
         out = { t: 'img', data: img };
       }
       if (s.partner) send(s.partner, out);
-      else if (s.bot) botRespond(ws, out.text || '', m.t === 'img');
+      else if (s.bot) {
+        if (m.t === 'img') { clearTimers(s); s.bot = null; send(ws, { t: 'left' }); }  // photo sent to bot: leaves instantly
+        else botRespond(ws, out.text, false);
+      }
     }
   });
   ws.on('close', () => { leave(ws); clients.delete(ws); });
 });
 
-// Online counter every 5 seconds
+// Online counter every 10 seconds
 setInterval(() => {
   onlineShown = (FAKE_ONLINE ? between(50, 100) : 0) + clients.size;
   clients.forEach((_, ws) => send(ws, { t: 'online', n: onlineShown }));
-}, 5000);
+}, 10000);
 
 // Keep-alive ping so hosts don't close idle connections
 setInterval(() => wss.clients.forEach(w => { try { w.ping(); } catch {} }), 30000);
