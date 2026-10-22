@@ -14,6 +14,20 @@ const ROUTES = { '/': 'index.html', '/terms': 'terms.html' };
 const clients = new Map(); // ws -> state
 let queue = [], onlineShown = between(50, 100);
 
+// ===== Visit counter (saved to stats-data.json) =====
+const STATS_FILE = path.join(__dirname, 'stats-data.json');
+let visits = { total: 0, days: {} }, visitsDirty = false;
+try { visits = JSON.parse(fs.readFileSync(STATS_FILE, 'utf8')); } catch {}
+const today = () => new Date(Date.now() + 5.5 * 3600 * 1000).toISOString().slice(0, 10); // India date
+function countVisit() { visits.total++; const k = today(); visits.days[k] = (visits.days[k] || 0) + 1; visitsDirty = true; }
+setInterval(() => {
+  if (!visitsDirty) return;
+  const keep = Object.keys(visits.days).sort().slice(-60);          // keep last 60 days only
+  visits.days = Object.fromEntries(keep.map(k => [k, visits.days[k]]));
+  try { fs.writeFileSync(STATS_FILE, JSON.stringify(visits)); } catch {}
+  visitsDirty = false;
+}, 30000);
+
 const server = http.createServer((req, res) => {
   const url = req.url.split('?')[0];
   if (url === '/stats') {
@@ -22,7 +36,9 @@ const server = http.createServer((req, res) => {
     let withBot = 0, withReal = 0;
     clients.forEach(s => { if (s.bot) withBot++; else if (s.partner) withReal++; });
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ realUsersConnected: clients.size, waitingForMatch: queue.length, chattingWithRealPeople: withReal, chattingWithBot: withBot, shownOnHomeScreen: onlineShown }));
+    return res.end(JSON.stringify({ realUsersConnected: clients.size, waitingForMatch: queue.length, chattingWithRealPeople: withReal, chattingWithBot: withBot, shownOnHomeScreen: onlineShown,
+      totalVisits: visits.total, visitsToday: visits.days[today()] || 0,
+      last7Days: Object.fromEntries(Object.keys(visits.days).sort().slice(-7).map(k => [k, visits.days[k]])) }));
   }
   const file = path.normalize(path.join(PUB, ROUTES[url] || url));
   if (!file.startsWith(PUB)) { res.writeHead(403); return res.end(); }
@@ -61,7 +77,6 @@ function join(ws) {
   queue.push(ws);
   send(ws, { t: 'searching' });
   if (USE_BOT) s.timers.push(setTimeout(() => { queue = queue.filter(x => x !== ws); startBot(ws); }, 2000));
-  
 }
 
 function say(ws, bot, text, done) {
@@ -108,6 +123,7 @@ wss.on('connection', ws => {
   ws.on('message', raw => {
     let m; try { m = JSON.parse(raw); } catch { return; }
     const s = clients.get(ws);
+    if (m.t === 'hello') { if (!m.ret && !s.counted) { s.counted = true; countVisit(); } return; }
     if (m.t === 'join') return join(ws);
     if (m.t === 'leave') return leave(ws);
     if (m.t === 'typing' && s.partner) return send(s.partner, { t: 'typing', on: !!m.on });
