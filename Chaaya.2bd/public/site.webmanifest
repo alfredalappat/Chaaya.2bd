@@ -1,0 +1,13 @@
+{
+  "name": "Chaaya.2bd",
+  "short_name": "Chaaya",
+  "description": "Chat with Malayalis over a cup of chaya.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090807",
+  "theme_color": "#1f6f5c",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
