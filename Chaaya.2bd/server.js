@@ -60,7 +60,8 @@ function join(ws) {
   }
   queue.push(ws);
   send(ws, { t: 'searching' });
-  if (USE_BOT) s.timers.push(setTimeout(() => { queue = queue.filter(x => x !== ws); startBot(ws); }, 5000));
+  if (USE_BOT) s.timers.push(setTimeout(() => { queue = queue.filter(x => x !== ws); startBot(ws); }, 2000));
+  
 }
 
 function say(ws, bot, text, done) {
