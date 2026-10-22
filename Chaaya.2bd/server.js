@@ -1,3 +1,4 @@
+const ADMIN_KEY = process.env.ADMIN_KEY || 'change-this-key';
 const http = require('http'), fs = require('fs'), path = require('path');
 const { WebSocketServer } = require('ws');
 const { createBot, typingDelay, between } = require('./bot');
@@ -8,6 +9,20 @@ const ROUTES = { '/': 'index.html', '/terms': 'terms.html' };
 
 const server = http.createServer((req, res) => {
   const url = req.url.split('?')[0];
+  if (url === '/stats') {
+  const key = new URL(req.url, 'http://x').searchParams.get('key');
+  if (key !== ADMIN_KEY) { res.writeHead(403); return res.end('Forbidden'); }
+  let withBot = 0, withReal = 0;
+  clients.forEach(s => { if (s.bot) withBot++; else if (s.partner) withReal++; });
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  return res.end(JSON.stringify({
+    realUsersConnected: clients.size,
+    waitingForMatch: queue.length,
+    chattingWithRealPeople: withReal,
+    chattingWithBot: withBot,
+    shownOnHomeScreen: onlineShown
+  }));
+}
   const file = path.normalize(path.join(PUB, ROUTES[url] || url));
   if (!file.startsWith(PUB)) { res.writeHead(403); return res.end(); }
   fs.readFile(file, (err, data) => {
