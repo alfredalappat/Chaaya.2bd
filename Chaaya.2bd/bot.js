@@ -12,7 +12,7 @@ const OPENERS = ["oi","boy aano?", "girl aano?", "aan aano penn aano?", "male aa
 const MESSAGES = [
   ["from?", "frm?", "naatilevidya?","evideya sthalam?","naattil evideya?","from?", "frm?", "naatilevidya?", "native evideya?", "evideya sthalam?", "eth naada?", "evide ninna?"],
   ["padikaano?", "padikkuvaano?", "studentaano?","working aano"],
-    ["first time aano ivide?", "ivide aadyam aano?", "munp ivide vannittundo?", "ee app use cheythittundo?"],
+    ["first time aano ivide?", "ivide aadyam aano?",],
     ["strangers aayi chat cheyyarundo?"],
   ["ivide kore neram aayo?", "ethra neramaayi chat cheyyunnu?", "ivide aareyenkilum kittiyo?"],
   ["insta undo?", "instagram use cheyyarundo?", "insta id undo?"],
