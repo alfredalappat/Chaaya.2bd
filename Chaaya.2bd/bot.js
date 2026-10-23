@@ -57,13 +57,10 @@ const MESSAGES = [
   "evideya?"],
 
   ["single aano?"],
-  ["relationship undo?"],
-  ["bf/gf undo?"],
+  ["relationship undo"],
+  ["bf/gf undo"],
 
-  ["entha peru?"],
 
-  ["work cheyyuvaano?"],
-  ["bore adichittu vannathano?"],
 ];
 
 
