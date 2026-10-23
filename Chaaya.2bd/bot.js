@@ -482,7 +482,7 @@ const fill = (text, p) => text.replace(/\{(\w+)\}/g, (_, k) => (p[k] !== undefin
 
 
 function createBot() {
-  const bot = { limit: between(2, 3), n: 0, usedGroups: new Set(), spoke: false, persona: makePersona(), usedLines: new Map() };
+  const bot = { limit: between(5, 7), n: 0, usedGroups: new Set(), spoke: false, persona: makePersona(), usedLines: new Map() };
   const pickFromGroup = () => {
     const all = GROUPS.map((_, i) => i);
     const fresh = all.filter(i => !bot.usedGroups.has(i));
