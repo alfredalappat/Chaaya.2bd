@@ -62,12 +62,23 @@ function leave(ws, notify = true) {
   clearTimers(s);
   queue = queue.filter(x => x !== ws);
   const p = s.partner; s.partner = null; s.bot = null;
-  if (p) { const ps = clients.get(p); if (ps) { ps.partner = null; if (notify) send(p, { t: 'left' }); } }
+  if (p) {
+    const ps = clients.get(p);
+    if (ps) {
+      ps.partner = null; ps.lastPartner = ws;   // remember who they just chatted with
+      s.lastPartner = p;
+      if (notify) send(p, { t: 'left' });
+    }
+  }
 }
+
+// true if b is the person a chatted with most recently (they are not matched again right away)
+const recent = (a, b) => { const s = clients.get(a); return !!s && s.lastPartner === b; };
 
 function join(ws) {
   const s = clients.get(ws); leave(ws);
-  const other = queue.shift();
+  const idx = queue.findIndex(o => o !== ws && !recent(ws, o) && !recent(o, ws));
+  const other = idx >= 0 ? queue.splice(idx, 1)[0] : null;
   if (other) {
     clearTimers(clients.get(other));
     s.partner = other; clients.get(other).partner = ws;
@@ -93,6 +104,7 @@ function say(ws, bot, text, done) {
 function startBot(ws) {
   const s = clients.get(ws); if (!s) return;
   const bot = s.bot = createBot();
+  s.lastPartner = null;   // most recent chat is now the bot, so the earlier person can be matched again
   send(ws, { t: 'matched' });
   const o = bot.opener();
   if (o) s.timers.push(setTimeout(() => { if (s.bot === bot && !bot.spoke) { bot.spoke = true; say(ws, bot, o); } }, between(800, 2000)));
