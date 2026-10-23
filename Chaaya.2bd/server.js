@@ -95,7 +95,7 @@ function startBot(ws) {
   const bot = s.bot = createBot();
   send(ws, { t: 'matched' });
   const o = bot.opener();
-  if (o) s.timers.push(setTimeout(() => s.bot === bot && say(ws, bot, o), between(800, 2000)));
+  if (o) s.timers.push(setTimeout(() => { if (s.bot === bot && !bot.spoke) { bot.spoke = true; say(ws, bot, o); } }, between(800, 2000)));
 }
 
 // One reply per burst: messages sent quickly are grouped, bot answers once
