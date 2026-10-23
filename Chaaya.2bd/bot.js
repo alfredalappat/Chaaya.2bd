@@ -13,9 +13,9 @@ const MESSAGES = [
   ["from?", "frm?", "naatilevidya?","evideya sthalam?","naattil evideya?","from?", "frm?", "naatilevidya?", "native evideya?", "evideya sthalam?", "eth naada?", "evide ninna?"],
   ["padikaano?", "padikkuvaano?", "studentaano?","working aano"],
     ["first time aano ivide?", "ivide aadyam aano?", "munp ivide vannittundo?", "ee app use cheythittundo?"],
-    ["entha ivide vannath?", "chat cheyyan vannathaano?", "pudhiya friends undakkan vannathaano?", "strangers aayi chat cheyyarundo?"],
-  ["ivide kore neram aayo?", "ethra neramaayi chat cheyyunnu?", "ivide aareyenkilum kittiyo?", "chat okke nadakkunnundo?"],
-  ["insta undo?", "instagram use cheyyarundo?", "insta id undo?", "social media use cheyyumo?"],
+    ["strangers aayi chat cheyyarundo?"],
+  ["ivide kore neram aayo?", "ethra neramaayi chat cheyyunnu?", "ivide aareyenkilum kittiyo?"],
+  ["insta undo?", "instagram use cheyyarundo?", "insta id undo?"],
 
 
   [
@@ -56,42 +56,19 @@ const MESSAGES = [
   "entha paripaadi?",
   "evideya?"],
 
-  ["food kazhicho?"],
-
-  ["busy aano?"],
-  ["free aano?"],
-  "veettil aano?",
-  ["padikkano job aano?"],
-
   ["single aano?"],
   ["relationship undo?"],
   ["bf/gf undo?"],
 
-  ["love set aano?"],
   ["entha peru?"],
 
   ["work cheyyuvaano?"],
-  ["insta undo?"],
-
-  ["pinne entha?"],
-
-  ["chat cheyyan vannatha?"],
-  ["bore adichittu vannatha"],
-
-  ["mazha undo avide"],
-
-  ["first time aano ivide"],
-
-
-  
+  ["bore adichittu vannathano?"],
 ];
 
-// The last message before the bot leaves
-const GOODBYES =   ["bye", "byee", "byeee", "bbyee", "byee da", "bye bro", "byee tc","okay bye", "sheri bye", "enna bye", "ennal sheri", "okay pinne kaanam","okay njan povaa", "enna njan potte", "njan irangane", "enna sheri njan poyi"]
-;
 
 function createBot() {
-  const bot = { limit: between(3, 4), n: 0, usedGroups: new Set() };
+  const bot = { limit: between(2, 3), n: 0, usedGroups: new Set() };
   const pickFromGroup = () => {
     const all = MESSAGES.map((_, i) => i);
     const fresh = all.filter(i => !bot.usedGroups.has(i));
@@ -101,9 +78,8 @@ function createBot() {
   };
   // returns { text, leave }
   bot.reply = () => {
-    bot.n++;
-    if (bot.n >= bot.limit) return { text: R(GOODBYES), leave: true };
-    return { text: pickFromGroup(), leave: false };
+        bot.n++;
+    return { text: pickFromGroup(), leave: bot.n >= bot.limit }; 
   };
   bot.opener = () => (Math.random() < 0.55 ? R(OPENERS) : null);
   return bot;
