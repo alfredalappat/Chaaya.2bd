@@ -68,7 +68,7 @@ const GROUPS = MESSAGES.filter(Array.isArray)
 if (GROUPS.length !== MESSAGES.length) console.warn('bot.js: a group in MESSAGES is broken, check the commas');
 
 function createBot() {
-  const bot = { limit: between(2, 3), n: 0, usedGroups: new Set() };
+  const bot = { limit: between(2, 3), n: 0, usedGroups: new Set(), spoke: false };
   const pickFromGroup = () => {
     const all = GROUPS.map((_, i) => i);
     const fresh = all.filter(i => !bot.usedGroups.has(i));
@@ -78,6 +78,8 @@ function createBot() {
   };
   // returns { text, leave }
   bot.reply = () => {
+    // The bot's very first message is ALWAYS from OPENERS (it does not count towards the limit)
+    if (!bot.spoke) { bot.spoke = true; return { text: R(OPENERS), leave: false }; }
     bot.n++;
     return { text: pickFromGroup(), leave: bot.n >= bot.limit };
   };
