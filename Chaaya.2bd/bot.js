@@ -1,4 +1,3 @@
-
 // ===== EDIT THIS FILE to change what the chat partner says =====
 const R = a => a[Math.floor(Math.random() * a.length)];
 const between = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
@@ -9,13 +8,14 @@ const OPENERS = ["oi","hi", "hello", "hey", "hii", "hy","hellooy","hy","hyy","?"
 // Normal replies, in GROUPS. Each [ ... ] is one group of the same message written in different ways.
 // The bot picks a random group, then one random line from inside it.
 // A group is never used twice in the same chat.
+// IMPORTANT: every group needs a comma after its closing ]
 const MESSAGES = [
-  ["neme",,"name","ur name","your name","Name","namee??","yourr Namw","Namm?"]
+  ["neme","name","ur name","your name","Name","namee??","yourr Namw","Namm?"],
   ["boy aano?", "girl aano?", "aan aano penn aano?", "male aano female aano?","boy or girl","girl aano","lady or boy","boooy aano"],
   ["from?", "frm?", "naatilevidya?","evideya sthalam?","naattil evideya?","from?", "frm?", "naatilevidya?", "native evideya?", "evideya sthalam?", "eth naada?", "evide ninna?"],
   ["padikaano?", "padikkuvaano?", "studentaano?","working aano"],
-    ["first time aano ivide?", "ivide aadyam aano?",],
-    ["strangers aayi chat cheyyarundo?"],
+  ["first time aano ivide?", "ivide aadyam aano?"],
+  ["strangers aayi chat cheyyarundo?"],
   ["ivide kore neram aayo?", "ivide aareyenkilum kittiyo?"],
 
   [
@@ -59,24 +59,27 @@ const MESSAGES = [
   ["single aano?"],
   ["relationship undo"],
   ["bf/gf undo"],
-
-
 ];
 
+// Safety: a broken group (missing comma etc.) is skipped instead of crashing the server
+const GROUPS = MESSAGES.filter(Array.isArray)
+  .map(g => g.filter(x => typeof x === 'string' && x))
+  .filter(g => g.length);
+if (GROUPS.length !== MESSAGES.length) console.warn('bot.js: a group in MESSAGES is broken, check the commas');
 
 function createBot() {
   const bot = { limit: between(2, 3), n: 0, usedGroups: new Set() };
   const pickFromGroup = () => {
-    const all = MESSAGES.map((_, i) => i);
+    const all = GROUPS.map((_, i) => i);
     const fresh = all.filter(i => !bot.usedGroups.has(i));
     const i = R(fresh.length ? fresh : all);    // only repeats a group if every group was already used
     bot.usedGroups.add(i);
-    return R(MESSAGES[i]);
+    return R(GROUPS[i]);
   };
   // returns { text, leave }
   bot.reply = () => {
-        bot.n++;
-    return { text: pickFromGroup(), leave: bot.n >= bot.limit }; 
+    bot.n++;
+    return { text: pickFromGroup(), leave: bot.n >= bot.limit };
   };
   bot.opener = () => (Math.random() < 0.55 ? R(OPENERS) : null);
   return bot;
