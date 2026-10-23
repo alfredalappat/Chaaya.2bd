@@ -12,7 +12,7 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.txt': 'text/plain', '.xml'
 const ROUTES = { '/': 'index.html', '/terms': 'terms.html' };
 
 const clients = new Map(); // ws -> state
-let queue = [], onlineShown = between(50, 100);
+let queue = [], onlineShown = between(20, 40);
 
 // ===== Visit counter (saved to stats-data.json) =====
 const STATS_FILE = path.join(__dirname, 'stats-data.json');
@@ -162,7 +162,7 @@ wss.on('connection', ws => {
 
 // Online counter every 10 seconds
 setInterval(() => {
-  onlineShown = (FAKE_ONLINE ? between(50, 100) : 0) + clients.size;
+  onlineShown = (FAKE_ONLINE ? between(20, 40) : 0) + clients.size;
   clients.forEach((_, ws) => send(ws, { t: 'online', n: onlineShown }));
 }, 10000);
 
