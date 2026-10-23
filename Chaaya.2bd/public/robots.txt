@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /stats
-Sitemap: https://chaaya.2bd.net/sitemap.xml
