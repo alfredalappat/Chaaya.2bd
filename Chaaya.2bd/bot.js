@@ -4,19 +4,19 @@ const R = a => a[Math.floor(Math.random() * a.length)];
 const between = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 
 // Sometimes sent first when the chat starts
-const OPENERS = ["oi","boy aano?", "girl aano?", "aan aano penn aano?", "male aano female aano?","hi", "hello", "hey", "hii", "hy","boy aan","hellooy","hy","hyy","?","boy or girl","girl aano","name","ur name","your name","hiii","hoi","Name","namee??","helooo","yourr Namw","Namm?","booy?","lady or boy","hiiiiiiiii","hoy",];
+const OPENERS = ["oi","hi", "hello", "hey", "hii", "hy","hellooy","hy","hyy","?","hiii","hoi","helooo","hiiiiiiiii","hoy",];
 
 // Normal replies, in GROUPS. Each [ ... ] is one group of the same message written in different ways.
 // The bot picks a random group, then one random line from inside it.
 // A group is never used twice in the same chat.
 const MESSAGES = [
+  ["neme",,"name","ur name","your name","Name","namee??","yourr Namw","Namm?"]
+  ["boy aano?", "girl aano?", "aan aano penn aano?", "male aano female aano?","boy or girl","girl aano","lady or boy","boooy aano"],
   ["from?", "frm?", "naatilevidya?","evideya sthalam?","naattil evideya?","from?", "frm?", "naatilevidya?", "native evideya?", "evideya sthalam?", "eth naada?", "evide ninna?"],
   ["padikaano?", "padikkuvaano?", "studentaano?","working aano"],
     ["first time aano ivide?", "ivide aadyam aano?",],
     ["strangers aayi chat cheyyarundo?"],
-  ["ivide kore neram aayo?", "ethra neramaayi chat cheyyunnu?", "ivide aareyenkilum kittiyo?"],
-  ["insta undo?", "instagram use cheyyarundo?", "insta id undo?"],
-
+  ["ivide kore neram aayo?", "ivide aareyenkilum kittiyo?"],
 
   [
   "rahul", "meenu", "akhil", "arjun", "amal", "abhinav", "adarsh", "adithyan",
